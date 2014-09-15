@@ -4,6 +4,8 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "vagrant.dgudev"
   config.vm.synced_folder ".", "/vagrant", owner: "co", group: "www-data"
 
+  config.vm.network "public_network"
+
   config.vm.box     = "dgu-dev-1.0"
   config.vm.box_url = "http://co-dev1.dh.bytemark.co.uk/dgu-dev-1.0.box"
 
