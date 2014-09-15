@@ -1,9 +1,46 @@
 ---
-beluga::mysql_server::admin_password: ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBADAFMAACAQAwDQYJKoZIhvcNAQEBBQAEggEAaznSoZABgxyXZt2tGRLNaE/k4T2ibP99jv1BCIHg/F04K+cAp/YGIPhccld5fHPLwUhCMkRb19wKbnNXEAVCHJoyyFb/8W0iesk4BEmpiBrI8zeuV0FIXb0G15W3WOK54cUZ2kmM/507D29np50vpD0ao/KyVpRgVSJSvFHUq8PNRu4F2noDXCo9bXK3cbGO+mPAEbemiaGFCsLaqteAeLHw8x9dHif0l2Wotmc3TywjANHo/7N1nxnl6ihGhn4wNH/Xfj6yOSOIWI3i+q3g+JjxD5hXnyTXo8geeSXcEj5opZyKweq18gx6KnPpKisLCooyfNYq16bsBvOv009krTA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBD9dl5DUc+iu9ZG37xN9elNgBCx0r4KhxAa78Cm/62yWIs5] 
+#################
+#INCLUDE CLASSES#
+#################
+classes:
+  - dgu_defaults
+
+######################
+#BELUGA CONFIGURATION#
+######################
+beluga::facts::role:
+  "stage" : 'pre'
+  "role" : 'dev'
+beluga::wget::install_wget: false
+beluga::hiera_data_dir: '/etc/puppet/hieradata'
+#BELUGA::PARAMS
+beluga::params::install_jdk: false
+beluga::params::jre_package: default-jre
+#BELUGA::APACHE_FRONTEND_SERVER
+beluga::apache_frontend_server::apache_port: 80
+#BELUGA::MYSQL PARAMETERS - password for mysql set to 'common'.
+beluga::mysql_server::admin_password: ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBADAFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAeK6iEY+6afUsazW5Je0KRXz9bT+hM6AfILTC/YB6yM1DVjnCcARRMcMJ9AWAJoCA25So5x6hGQ5Z+uWrTZR5OQMj8ReeeVLMqQybdk+8dgpXGO1kBPeiHoNlJ4Mjr967sS6JSkb5x6HwfiJ0UVryqPEgc4GRY10Pd/VTaB9Migfs0xm+vE27LthSrL0q7jCjEB75ewA4NZPQaEFdEnXF5sYU8loXN4hO91Q/Qp/4VBfJreO/6l1zCXogEbtCHNKluKc/tIpB2KJFhzygCaMiQ7fh9e756/yq+aMchJoAgEuWAO9jhNwsjrjdDAKMqim027Wh9jct8cZ7RISuFdPTXjA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBAryfQAKAyplq3WH5l9HBEKgBAYyKuqmjDcC/U2pRWjyM5O]
 beluga::mysql_server::admin_user: root
+#BELUGA::DEVELOPER_TOOLS
+beluga::developer_tools::install_git: false
+beluga::developer_tools::install_vim: false
+
+
+##################
+#MYSQL PARAMETERS#
+##################
+mysql::server::remove_default_accounts: true
+mysql::server::override_options:
+  'mysqld':
+    'max_allowed_packet' : '500M'
+    'bind-address' : '0.0.0.0'
+
+#################
+#SUDO PARAMETERS#
+#################
 sudo::configs:
     'admins':
         'content'   : "%admins ALL=(ALL) NOPASSWD: ALL"
         'priority'  : 10
-beluga::apache_frontend_server::owner: co
-beluga::apache_frontend_server::group: co
+sudo::purge: false
+sudo::config_file: false
