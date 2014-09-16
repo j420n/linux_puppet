@@ -1,61 +1,14 @@
 node default {
-  crit( "Node only matched \"default\" for which there is no configuration, $::hostname" )
+  crit( "Node only matched \"default\" for which there is only common configuration in common.yaml, $::hostname" )
 }
 
-node /.*\.dgudev/ {
-  class { 'sudo':
-    purge               => false,
-    config_file_replace => false,
-  }
 
-  include dgu_defaults
+#INCLUDE CLASSES DECLARED IN HIERADATA
+hiera_include("classes")
 
-  # Thinking of modifying this for your own needs?
-  # Don't! Create 'vagrant.pp' in the same directory
-  # as your Vagrantfile and the vagrant provisioner
-  # will use that instead.
 
-  class {"beluga::developer_tools":
-    install_git => true,
-    install_vim => true,
-  }
-
-  class { 'beluga::facts::role':
-    stage => pre,
-    role => 'dev',
-  }
-
-  class { "beluga::frontend_traffic_director":
-    extra_selectors           => $extra_selectors,
-    frontend_domain           => 'dgud7',
-    backend_domain            => 'dgud7',
-  }
-
-  class {'beluga::apache_frontend_server':
-    domain_name               => 'dgud7',
-    owner                     => 'co',
-    group                     => 'co'
-  }
-
-  class { 'solr':
-    source_dir => "puppet:///modules/dgu_solr/solr",
-    source_dir_purge => true,
-  }
-
-  class {'beluga::mysql_server': }
-
-  class { 'beluga::drush_server': }
-
-  class { 'beluga::mail_server': }
-
-  class { 'jenkins':
-    configure_firewall => false,
-  }
-
-  class { 'beluga::ruby_frontend':  }
-
-  include orgdc
-}
+#node 'vagrant.dgudev'
+#Configuration for this node has moved to vagrant.dgudev.yaml and vagrant.yaml .
 
 
 node standards {
