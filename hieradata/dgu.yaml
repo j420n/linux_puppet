@@ -1,4 +1,10 @@
 ---
+#################
+#INCLUDE CLASSES#
+#################
+classes:
+  - prod_defaults
+
 beluga::frontend_traffic_director::extra_selectors
   backend: 'ckan_server'
   condition: 'req.http.host ~ "^ckan."
