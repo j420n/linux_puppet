@@ -1,0 +1,31 @@
+---
+#Configuration for WEBSERVER ROLE
+
+#################
+#INCLUDE CLASSES#
+#################
+classes:
+ - dgu_defaults
+ - beluga::params
+ - beluga::apache_frontend_server
+ - beluga::mysql_server
+ - beluga::drush_server
+
+
+beluga::facts::role:
+ "stage" : 'pre'
+ "role" : 'webserver'
+
+
+ ###################################
+ #BELUGA APACHE VHOST CONFIGURATION#
+ ###################################
+ beluga::apache_frontend_server::log_level: info
+ beluga::apache_frontend_server::logroot: /var/log/apache2/data.gov.uk
+ beluga::apache_frontend_server::owner: co
+ beluga::apache_frontend_server::group: co
+ beluga::apache_frontend_server::domain_name: data.gov.uk
+ beluga::apache_frontend_server::serveradmin: admin@dguteam.co.uk
+ beluga::apache_frontend_server::apache::vhost::serveraliases:
+     - "data.gov.uk"
+     - "dgu"
