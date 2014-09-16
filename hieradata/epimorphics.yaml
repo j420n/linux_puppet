@@ -1,5 +1,63 @@
---
-sudo::configs:
+---
+#################
+#INCLUDE CLASSES#
+#################
+classes:
+    - epimorphics_defaults
+    - beluga::params
+    - beluga::apache_frontend_server
+    - orgdc
+    - beluga::mysql_server
+    - beluga::drush_server
+    - beluga::mail_server
+    - apache::mod::proxy
+    - apache::mod::proxy_http
+    - apache::mod::cache
+    - apache::mod::disk_cache
+    - apache::mod::expires
+    - apache::mod::autoindex
+
+######################
+#BELUGA CONFIGURATION#
+######################
+beluga::facts::role:
+  "stage" : 'pre'
+  "role" : 'epimorphics'
+#PARAMS
+beluga::params::wget_package: wget
+beluga::params::install_jdk: true
+beluga::params::jre_package: default-jre
+#APACHE_FRONTEND_SERVER
+beluga::apache_frontend_server::apache_port: 80
+beluga::apache_frontend_server::log_level: info
+beluga::apache_frontend_server::logroot: /var/log/apache2/reference.data.gov.uk
+beluga::apache_frontend_server::owner: www-data
+beluga::apache_frontend_server::group: www-data
+beluga::apache_frontend_server::domain_name: reference.data.gov.uk
+beluga::apache_frontend_server::serveradmin: skw@epimorphics.com
+beluga::apache_frontend_server::apache::vhost::serveraliases:
+    - "reference.data.gov.uk"
+    - "reference"
+#MYSQL_SERVER password is set to epimorphics
+beluga::mysql_server::admin_password: ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBADAFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAmYl2KZCzu/rays42o8sqiilQPq2rerclQmJ2NUhFzwUHYKunDF34qiUMoxZP3L2QmsJHwNwbUvk1cigGjp4PQHkfUlv5paQH4UAqJcYqT2XAeMYFekKuc4F+JZ8TKvyp4ODEstKdhcdN7eMe8o/NTcuqX19AnlRU2yxP94d/WNImVVk9J088ilvvoakxH+ecBmwjW/xiBZwuzV8RcAZ1DdYqbjoq/9a5klyIrCq6wcKuyGsRgAg2KUXencTswG41XXSAXK9L3d3gkzwB8bYK+nDqGsrQNLHxg/Sna7dq0Ltcrp2Fl5iFbw89ZXF8lgdHSPkfATz4aQvwF0DpaImwVTA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBCVBQe0TycSrfpjjWrSfu6jgBDX2ok48BMBJuw5kWDkegm6]
+beluga::mysql_server::admin_user: root
+beluga::developer_tools::install_git: true
+beluga::developer_tools::install_vim: true
+beluga::wget::install_wget: false
+
+##################
+#MYSQL PARAMETERS#
+##################
+mysql::server::override_options:
+  'mysqld':
+    'max_allowed_packet' : '500M'
+    'bind-address' : '0.0.0.0'
+
+#################
+#SUDO PARAMETERS#
+#################
+sudo::purge: false
+sudo::config_file: false
     'epimorphics':
         'content'   : "epimorphics ALL=(ALL) NOPASSWD: ALL"
         'priority'  : 10
