@@ -1,3 +1,26 @@
 ---
-beluga::mysql_server::admin_password: dev
-beluga::postgress_server::admin_password: password
+#################
+#INCLUDE CLASSES#
+#################
+classes:
+  - jenkins
+
+######################
+#BELUGA CONFIGURATION#
+######################
+
+beluga::wget::install_wget: true
+beluga::hiera_data_dir: '/etc/puppet/hieradata'
+#BELUGA::PARAMS
+beluga::params::install_jdk: true
+beluga::params::jre_package: default-jre
+
+#BELUGA::MYSQL_SERVER PARAMETERS - password for mysql set to 'dev'.
+beluga::mysql_server::admin_password: ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBADAFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAVj8Xiz6QknTr8q3bZ+Xc8o1rHsCywP34N1SrDyDq5cu3tFrUh6nlqCo9XtpRQEaYTKtnrtFt2tAXibPInRvZ8pn630jlnZ2rp8SEggOZ7uDex5vqxgPvWFeZerclE+po89LQdeuY4Qpu17/U2ibPWwvnx2LKYoUMSE2Vyh2xuOiN5MqPehqCA/dOh15VNVSYtzC1pwJX1ihJQbY3sAXQB66J8n3Xm3USOst7qAAcmTDmFIJU9C4yn9B7Y2Ji63YfrTAHBlByLFCTe43zDTn/1AOE5zjy+FLOQ2KScMXqSDawJGXsgwaR2ayNUZ92XcsmJm6JkcNu7vscB9SkL9BycDA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBBoYuWpMxCXPq12QF6W+PEfgBA5TbxP+p7jgXGzdH/xvx2U]
+beluga::mysql_server::admin_user: root
+#BELUGA::POSTGRESS_SERVER PARAMETERS - password for mysql set to 'dev'.
+beluga::postgress_server::admin_password: ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBADAFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAVj8Xiz6QknTr8q3bZ+Xc8o1rHsCywP34N1SrDyDq5cu3tFrUh6nlqCo9XtpRQEaYTKtnrtFt2tAXibPInRvZ8pn630jlnZ2rp8SEggOZ7uDex5vqxgPvWFeZerclE+po89LQdeuY4Qpu17/U2ibPWwvnx2LKYoUMSE2Vyh2xuOiN5MqPehqCA/dOh15VNVSYtzC1pwJX1ihJQbY3sAXQB66J8n3Xm3USOst7qAAcmTDmFIJU9C4yn9B7Y2Ji63YfrTAHBlByLFCTe43zDTn/1AOE5zjy+FLOQ2KScMXqSDawJGXsgwaR2ayNUZ92XcsmJm6JkcNu7vscB9SkL9BycDA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBBoYuWpMxCXPq12QF6W+PEfgBA5TbxP+p7jgXGzdH/xvx2U]
+beluga::postgress_server::admin_user: root
+#BELUGA::DEVELOPER_TOOLS
+beluga::developer_tools::install_git: true
+beluga::developer_tools::install_vim: true
