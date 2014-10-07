@@ -1,5 +1,5 @@
 node default {
-  crit( "Node only matched \"default\" for which there is only common configuration in common.yaml, $::hostname" )
+  crit( "Node only matched \"default\". Config from common.yaml and any facts will be used as well as any hieradata which matches this fqdn ->, $::hostname" )
 }
 
 
@@ -8,7 +8,7 @@ hiera_include("classes")
 
 
 #node 'vagrant.dgudev'
-#Configuration for this node has moved to vagrant.dgudev.yaml and vagrant.yaml .
+#Configuration for this node has moved to vagrant.yaml .
 
 
 node standards {
