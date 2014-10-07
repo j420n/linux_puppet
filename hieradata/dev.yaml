@@ -8,7 +8,7 @@ classes:
 ######################
 #BELUGA CONFIGURATION#
 ######################
-
+jenkins::configure_firewall: false
 beluga::wget::install_wget: true
 beluga::hiera_data_dir: '/etc/puppet/hieradata'
 #BELUGA::PARAMS
