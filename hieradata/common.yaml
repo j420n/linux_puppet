@@ -4,6 +4,7 @@
 #################
 classes:
   - dgu_defaults
+  - apt
 
 ######################
 #BELUGA CONFIGURATION#
