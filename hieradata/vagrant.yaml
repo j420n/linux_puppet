@@ -1,4 +1,24 @@
 ---
+#################
+#INCLUDE CLASSES#
+#################
+classes:
+    - beluga::params
+    - beluga::apache_frontend_server
+    - beluga::mysql_server
+    - beluga::drush_server
+    - beluga::mail_server
+    - apache::mod::proxy
+    - apache::mod::proxy_http
+    - apache::mod::cache
+    - apache::mod::disk_cache
+    - apache::mod::expires
+    - apache::mod::autoindex
+    - docker
+
+docker::manage_kernel: false
+docker::tcp_bind: tcp://127.0.0.1:4243
+docker::socket_bind: unix:///var/run/docker.sock
 #vagrant.yaml will match fqdn/node vagrant.example.com but not example.com
 #password for mysql is set to vagrant
 beluga::mysql_server::admin_password: ENC[PKCS7,MIIBeQYJKoZIhvcNAQcDoIIBajCCAWYCAQAxggEhMIIBHQIBADAFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAEhSM73o9TahYytibDb0K7GNeIONNvYdmdvOQ10sHBjojPo7dgdaH3F9qnnOpwricZCneQWuuRPri4b+xTTTuGX23h7B1MLAGZS9LzINqfis4qZp0snYVlQ7cKCmZvV6Id0BCWtApIb9P2bBtsAP/XceYUmwcil1ke0D3cSs5sWDIBbe12mSbxiE/Nw9GdDJaUF3tu1+rKiPCMkN5AKprPQS9OfC0KpHjrlVDWaH/MbLYZVTb0d5pJ03QqSKqmL9HZHsuIAQKyZ5XSlibW9BlFs1jrkJixgAMpHhKQUHGsJRW9xoJ2fTFlXfTCGpJshDj/Kb75kgkgg+qEVwMsOhi0zA8BgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBB2UBegoily7Cekqvp6F87SgBAT7YuYeGj+8taluZ8II0vg]
