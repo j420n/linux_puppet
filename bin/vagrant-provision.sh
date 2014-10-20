@@ -31,6 +31,8 @@ then
     rm -rf /etc/puppet
     ln -sf /vagrant/puppet /etc/
     ln -sf /etc/puppet/hiera.yaml /etc/
+    sudo gem uninstall librarian-puppet-maestrodev
+    sudo gem install librarian-puppet
     #Update puppet module dependencies using librarian-puppet
     cd /vagrant/puppet
     librarian-puppet update
