@@ -32,6 +32,15 @@ then
     ln -sf /vagrant/puppet /etc/
     ln -sf /etc/puppet/hiera.yaml /etc/
     sudo gem uninstall librarian-puppet-maestrodev
+    #Use ruby 1.9.3 (which is called 1.9.1 on the basebox) else activesupport for librarian-puppet 0.9.11 is unavailable.
+    sudo rm -rf /etc/alternatives/ruby
+        sudo rm -rf /etc/alternatives/gem
+    sudo ln -s /usr/bin/ruby1.9.1 /etc/alternatives/ruby
+    sudo ln -s /usr/bin/gem1.9.1 /etc/alternatives/gem
+    sudo gem update rdoc
+    gem install rubygems-update
+    sudo update_rubygems
+    sudo gem update --system
     sudo gem install librarian-puppet
     #Update puppet module dependencies using librarian-puppet
     cd /vagrant/puppet
