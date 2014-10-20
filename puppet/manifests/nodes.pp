@@ -54,7 +54,8 @@ node /.*\.dgudev/ {
 
   class { 'beluga::ruby_frontend':  }
 
-  include orgdc
+ # The puppet elda module included in orgdc currently has an issue with librarian puppet.
+ # include orgdc
 }
 
 
