@@ -29,6 +29,8 @@ then
     rm -rf /etc/puppet
     ln -sf /vagrant/puppet /etc/
     ln -sf /etc/puppet/hiera.yaml /etc/
+    #Symlink jar for solr
+    ln -sf /etc/alternatives/jar /usr/local/bin/jar
     sudo gem uninstall librarian-puppet-maestrodev
 
     #remove hiera from /usr/local/bin
@@ -40,9 +42,6 @@ then
     sudo ln -s /usr/bin/ruby1.9.1 /etc/alternatives/ruby
     sudo ln -s /usr/bin/gem1.9.1 /etc/alternatives/gem
 
-    gem install rubygems-update
-    sudo update_rubygems
-    sudo gem update rdoc
     sudo gem install librarian-puppet
     #Hiera is already installed on the basebox and if it is not installed beluga will do it.
     #sudo gem install hiera
